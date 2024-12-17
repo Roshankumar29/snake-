@@ -1,10 +1,10 @@
-*{
+* {
     margin: 0;
     padding: 0;
-    box-sizing: 0;
+    box-sizing: border-box;
 }
 
-body{
+body {
     height: 100vh;
     width: 100vw;
     background-color: bisque;
@@ -13,38 +13,38 @@ body{
     justify-content: center;
 }
 
-.container{
+.container {
     height: 40rem;
     width: 36rem;
     background-color: yellow;
     box-shadow: 0 0 10px 1px gray;
-
 }
 
-.score-container{
+.score-container {
     height: 4rem;
-    width: 36rem;
+    width: 100%;
     background-color: aqua;
     align-items: center;
     display: flex;
     justify-content: center;
-    font-size: larger;
+    font-size: 1.5rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
 }
 
-.game-container{
+.game-container {
     height: 36rem;
     width: 36rem;
     display: grid;
-    grid-template: repeat(25,1fr)/repeat(25,1fr);
+    grid-template: repeat(25, 1fr) / repeat(25, 1fr);
+    position: relative;
 }
 
-.food{
+.food {
     background-color: green;
     border-radius: 50%;
-
 }
 
-.snake{
+.snake {
     background-color: firebrick;
 }
