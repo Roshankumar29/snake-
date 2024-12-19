@@ -49,7 +49,7 @@ function renderGame() {
     if (foodX == headX && headY == foodY) {
         snakeBody.push([foodX, foodY]);
         generateFood();
-        score += 5;
+        score += 50;
 
         // Update score and high score display
         scoreContainer.innerHTML = `Score : ${score} | High Score : ${highScore}`;
