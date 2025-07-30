@@ -1,98 +1,143 @@
-let gameContainer = document.querySelector(".game-container");
-let scoreContainer = document.querySelector(".score-container");
-
-let foodX, foodY;
-let headX = 12, headY = 12;
-let velocityX = 0, velocityY = 0;
-let snakeBody = [];
-let score = 0;
-let highScore = localStorage.getItem("highScore") || 0; // Retrieve high score from local storage
-
-// Update score and high score display
-scoreContainer.innerHTML = `Score : ${score} | High Score : ${highScore}`;
-
-// Function to generate food at a random position
-function generateFood() {
-    foodX = Math.floor(Math.random() * 25) + 1;
-    foodY = Math.floor(Math.random() * 25) + 1;
-    for (let i = 0; i < snakeBody.length; i++) {
-        if (snakeBody[i][1] == foodY && snakeBody[i][0] == foodX) {
-            generateFood();
-        }
-    }
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #fff;
+    overflow: hidden;
 }
 
-// Function to handle game over
-function gameOver() {
-    // Update high score if current score is greater
-    if (score > highScore) {
-        highScore = score;
-        localStorage.setItem("highScore", highScore); // Save high score to local storage
-    }
-    headX = 12;
-    headY = 12;
-    generateFood();
-    velocityX = 0;
-    velocityY = 0;
-    snakeBody = [];
-    score = 0;
-
-    // Update score and high score display
-    scoreContainer.innerHTML = `Score : ${score} | High Score : ${highScore}`;
-    alert("Game Over");
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
-// Render the game
-function renderGame() {
-    console.log("Rendered ");
-    let updatedGame = `<div class="food" style="grid-area: ${foodY}/${foodX};"></div>`;
-    if (foodX == headX && headY == foodY) {
-        snakeBody.push([foodX, foodY]);
-        generateFood();
-        score =score+50;
-
-        // Update score and high score display
-        scoreContainer.innerHTML = `Score : ${score} | High Score : ${highScore}`;
-    }
-
-    snakeBody.pop();
-    headX += velocityX;
-    headY += velocityY;
-    snakeBody.unshift([headX, headY]);
-    if (headX == 0 || headY == 0 || headX == 26 || headY == 26) {
-        gameOver();
-    }
-    for (let i = 1; i < snakeBody.length; i++) {
-        if (snakeBody[0][0] == snakeBody[i][0] && snakeBody[0][1] == snakeBody[i][1]) {
-            gameOver();
-        }
-    }
-
-    for (let i = 0; i < snakeBody.length; i++) {
-        updatedGame += `<div class="snake" style="grid-area: ${snakeBody[i][1]}/${snakeBody[i][0]};"></div>`;
-    }
-
-    gameContainer.innerHTML = updatedGame;
+h1 {
+    margin: 0 0 15px 0;
+    color: #4cc9f0;
+    text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
 }
 
-// Initialize game
-generateFood();
-setInterval(renderGame, 150);
+.score-board {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
 
-document.addEventListener("keydown", function (e) {
-    console.log(e.key);
-    let key = e.key;
-    if (key == "ArrowUp" && velocityY != 1) {
-        velocityX = 0;
-        velocityY = -1;
-    } else if (key == "ArrowDown" && velocityY != -1) {
-        velocityX = 0;
-        velocityY = 1;
-    } else if (key == "ArrowLeft" && velocityX != 1) {
-        velocityY = 0;
-        velocityX = -1;
-    } else if (key == "ArrowRight" && velocityX != -1) {
-        velocityY = 0;
-        velocityX = 1;
+.current-score, .high-score {
+    padding: 5px 15px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.high-score {
+    color: #f72585;
+}
+
+#game-canvas {
+    border: 3px solid #4cc9f0;
+    border-radius: 5px;
+    background-color: #000;
+    box-shadow: 0 0 20px rgba(76, 201, 240, 0.3);
+}
+
+.controls {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background: #4cc9f0;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #f72585;
+    color: white;
+    transform: scale(1.05);
+}
+
+.mobile-controls {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.mobile-controls div {
+    display: flex;
+    gap: 50px;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(76, 201, 240, 0.3);
+    color: white;
+}
+
+.control-btn:hover {
+    background: rgba(247, 37, 133, 0.5);
+}
+
+.instructions {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #aaa;
+}
+
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    z-index: 10;
+}
+
+.game-over h2 {
+    color: #f72585;
+    margin-top: 0;
+}
+
+@media (max-width: 600px) {
+    .mobile-controls {
+        display: flex;
     }
-});
+    
+    #game-canvas {
+        width: 300px;
+        height: 300px;
+    }
+}
