@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Snake Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Snake Game - Mobile Friendly</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,21 +14,17 @@
             <div class="high-score">High Score: <span id="high-score">0</span></div>
         </div>
         <canvas id="game-canvas"></canvas>
+        <div class="mobile-controls">
+            <button class="control-btn" id="up-btn">↑</button>
+            <div class="horizontal-controls">
+                <button class="control-btn" id="left-btn">←</button>
+                <button class="control-btn" id="right-btn">→</button>
+            </div>
+            <button class="control-btn" id="down-btn">↓</button>
+        </div>
         <div class="controls">
             <button id="start-btn">Start Game</button>
             <button id="reset-btn">Reset</button>
-            <div class="mobile-controls">
-                <button class="control-btn" id="up-btn">↑</button>
-                <div>
-                    <button class="control-btn" id="left-btn">←</button>
-                    <button class="control-btn" id="right-btn">→</button>
-                </div>
-                <button class="control-btn" id="down-btn">↓</button>
-            </div>
-        </div>
-        <div class="instructions">
-            <p>Use arrow keys or buttons to control the snake</p>
-            <p>Eat the food (red) to grow and score points</p>
         </div>
     </div>
     <script src="script.js"></script>
